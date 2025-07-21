@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>TalkTag - Anonymous Q&A Platform</title>
+   
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="mode-switch">
+                <button class="mode-btn active" onclick="switchMode('student')">Student</button>
+                <button class="mode-btn" onclick="switchMode('teacher')">Teacher</button>
+            </div>
+            <h1>🏷️ TalkTag</h1>
+            <p>Anonymous Q&A Platform for Classrooms</p>
+        </div>
+
+        <!-- Student Link Section -->
+        <div id="student-link-section" class="link-section active">
+            <h2>Join Live Class</h2>
+            <input type="text" id="class-link-input" placeholder="Paste your class link here...">
+            <button onclick="joinClass()">Join Class</button>
+            <div id="link-error-message" class="error"></div>
+        </div>
+
+        <!-- Teacher Authentication Section -->
+        <div id="teacher-auth-section" class="teacher-auth-section">
+            <h2 id="auth-title">Teacher Login</h2>
+            <div class="form-group">
+                <input type="text" id="teacher-name" placeholder="Full Name (for Signup)" style="display: none;">
+            </div>
+            <div class="form-group">
+                <input type="email" id="teacher-email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" id="teacher-password" placeholder="Password">
+            </div>
+            <div id="auth-error-message" class="error"></div>
+            <button onclick="authenticate('login')">Login</button>
+            <button onclick="toggleAuthMode('signup')" id="signup-btn">Sign Up</button>
+            <div class="auth-toggle" onclick="toggleAuthMode('login')">Need to Sign Up? Click here.</div>
+        </div>
+
+        <!-- Teacher Link Section -->
+        <div id="teacher-link-section" class="link-section">
+            <h2>Share Live Class Link</h2>
+            <button onclick="generateClassLink()">Generate Class Link</button>
+            <div id="generated-link" class="generated-link"></div>
+        </div>
+
+        <div class="main-content">
+            <!-- Student Mode -->
+            <div id="student-mode" class="question-form disabled">
+                <h2>Ask a Question (Anonymously)</h2>
+                <div id="join-message" class="join-message">Please join a class to ask questions.</div>
+                <div class="form-group">
+                    <label for="question-input">Your Question:</label>
+                    <textarea id="question-input" placeholder="Type your question here..." required></textarea>
+                    <div id="error-message" class="error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="question-tag">Tag:</label>
+                    <select id="question-tag" required>
+                        <option value="">Select a tag</option>
+                        <option value="doubt">🤔 Doubt</option>
+                        <option value="feedback">💬 Feedback</option>
+                        <option value="clarify">❓ Clarify</option>
+                        <option value="suggestion">💡 Suggestion</option>
+                        <option value="technical">⚙️ Technical</option>
+                    </select>
+                </div>
+                <button class="submit-btn" onclick="submitQuestion()">Submit Question</button>
+            </div>
+
+            <!-- Teacher Dashboard -->
+            <div id="teacher-mode" class="teacher-dashboard">
+                <h2>Teacher Dashboard</h2>
+                <div class="form-group">
+                    <label>Total Questions: <span id="totalQuestions">0</span></label>
+                </div>
+                <div class="form-group">
+                    <label>Most Popular Tag: <span id="popularTag">None</span></label>
+                </div>
+                <div class="form-group">
+                    <select id="filter-tag">
+                        <option value="all">All Tags</option>
+                        <option value="doubt">🤔 Doubt</option>
+                        <option value="feedback">💬 Feedback</option>
+                        <option value="clarify">❓ Clarify</option>
+                        <option value="suggestion">💡 Suggestion</option>
+                        <option value="technical">⚙️ Technical</option>
+                    </select>
+                    <select id="sort-method">
+                        <option value="recent">Most Recent</option>
+                        <option value="upvotes">Most Upvotes</option>
+                    </select>
+                    <button onclick="applyFilters()">Apply Filters</button>
+                    <button onclick="clearAllQuestions()">Clear All Questions</button>
+                </div>
+            </div>
+
+            <!-- Questions Feed -->
+            <div class="questions-feed">
+                <div class="feed-header">
+                    <h2>Live Questions</h2>
+                    <select class="filter-select" id="filterSelect" onchange="applyFilters()">
+                        <option value="all">All Tags</option>
+                        <option value="doubt">🤔 Doubt</option>
+                        <option value="feedback">💬 Feedback</option>
+                        <option value="clarify">❓ Clarify</option>
+                        <option value="suggestion">💡 Suggestion</option>
+                        <option value="technical">⚙️ Technical</option>
+                    </select>
+                </div>
+                <div id="question-feed"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
